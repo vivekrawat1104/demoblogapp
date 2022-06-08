@@ -1,25 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './MyComponents/Navbar'
+import Home from './MyComponents/Home'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Create from './MyComponents/Create';
+import BlogDetails from './MyComponents/BlogDetails';
+import NotFound from './MyComponents/NotFound';
+
+
+// CMD To Run JSON-SERVER:
+// $npx json-server --watch 'src/data/db.json' --port 8000
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <div className="content">
+          <Switch>
+          
+            {/* 1.Homepage */}
+            <Route exact path="/">
+              <Home />
+            </Route>
+
+            {/* 2. create */}
+            <Route path="/create">
+              <Create />
+            </Route>
+            
+            {/* 3. BlogDetails */}
+            <Route path="/blogs/:id">
+              <BlogDetails />
+            </Route>
+          
+            {/* 4. LINK NOT FOUND. */}
+            <Route path="*">
+              <NotFound />
+            </Route>
+          
+          </Switch>
+        </div>
+      </div>
+    </Router>
   );
+
 }
 
 export default App;
